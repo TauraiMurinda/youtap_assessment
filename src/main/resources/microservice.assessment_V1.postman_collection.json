@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "1cf55f72-11a9-463c-8b51-6fe2f78ffe75",
+		"name": "microservice.assessment_V1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "no_user_supplied_test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getusercontacts?id=1&username=\"Bret\"",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getusercontacts"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						},
+						{
+							"key": "username",
+							"value": "\"Bret\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "id-supplied_test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getusercontacts?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getusercontacts"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_name+supplied_test_demo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getusercontacts?username=\"Bret\"",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getusercontacts"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "\"Bret\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "both_id_and_username_supplied",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getusercontacts?id=1&username=\"Bret\"",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getusercontacts"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						},
+						{
+							"key": "username",
+							"value": "\"Bret\""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
