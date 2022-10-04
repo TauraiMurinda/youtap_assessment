@@ -14,13 +14,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youtap.microservice.assessment.Application;
 import com.youtap.microservice.assessment.controller.entity.User;
+import com.youtap.microservice.assessment.controller.exceptions.NoMatchedUserContactDetailsException;
 import com.youtap.microservice.assessment.datasource.UserContactDetailsDataSourceService;
 
 @RestController
@@ -44,6 +47,13 @@ public class ContactDetailsController {
 		ResponseEntity<User>userContactsMatchedResponseEntity = new ResponseEntity<>(userContactsMatched,HttpStatus.OK);
 		return userContactsMatchedResponseEntity; 
 	}
+	
+	@ExceptionHandler(NoMatchedUserContactDetailsException.class)
+	  @ResponseStatus(HttpStatus.NOT_FOUND)
+	  public ResponseEntity<String> handleNoSuchElementFoundException( NoMatchedUserContactDetailsException exception) {
+	    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+	  }
+
 
 
 	private  User filterContacts(Integer id, String username, ResponseEntity<User[]> cachedContactlist) {
@@ -57,19 +67,14 @@ public class ContactDetailsController {
 		user.setId(id);
 		user.setUsername(username);
 
-		LOG.info("" + use.equals(user));
 		
 		Predicate<User> userpredicate = other -> {return user.equals(other);};
-		 List<User> user1 = Arrays.stream(users).filter(userpredicate).collect(Collectors.toList());
-		 
+		List<User> user1 = Arrays.stream(users).filter(userpredicate).collect(Collectors.toList());
 		
+		if(user1.isEmpty()) {
+			throw new  NoMatchedUserContactDetailsException("no such user ");
+		}
 		
-		LOG.info("*******************************************" + user1.size());
-		LOG.info("" + use.equals(user));
-
-		LOG.info("" + user1.get(0));
-		
-		LOG.info("*******************************************");
 		return user1.get(0);
 	}
 
