@@ -32,7 +32,7 @@ public class User implements Serializable{
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", username=" + username + "]";
+        return "\n User [id=" + id + ",\n username=" + username + ",\n email=" + getEmail() + ",\n phone=" + getPhone() + "]";
     }
 
     public Integer getId() {

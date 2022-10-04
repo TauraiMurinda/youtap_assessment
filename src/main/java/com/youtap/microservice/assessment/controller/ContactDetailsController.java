@@ -2,6 +2,7 @@ package com.youtap.microservice.assessment.controller;
 
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -32,23 +33,26 @@ public class ContactDetailsController {
 
 	
 	@GetMapping(value = "/getusercontacts", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User[]> getContactDetailsByIDorUsername(@RequestParam(value="id",required=true) String  id, @RequestParam(value="username", required=false) String  username) throws URISyntaxException {
+	public ResponseEntity<User[]> getContactDetailsByIDorUsername(@RequestParam(value="id",required=false) Integer  id, @RequestParam(value="username", required=false) String  username) throws URISyntaxException {
 		
 		LOG.info("ABOUT TO CALL CONTACTSLIST BACK END");
 		ResponseEntity<User[]> cachedContactlist = userContactDataSourceService.getContactsbyIDorUsername();
-		
-		ObjectMapper mapper = new ObjectMapper();
-
-		
 		LOG.info("SEARCHING CONTACT DETAILS FOR PARTICULAR USER");
 		
-		LOG.info("id   :" +id +"\n" +"username    :"+username);
+		LOG.info("\n id   :" +id +"\n" +"username    :"+username + "\n");
+		
+		
+		User user = new User();
+		user.setId(id);
+		user.setUsername(username);
+		
 
-		Predicate<User> Userpredicate = user -> {return id.equalsIgnoreCase(String.valueOf(user.getId())) || username.equalsIgnoreCase(user.getUsername());};
-		List<User> userlist = Arrays.stream(cachedContactlist.getBody()).filter(Userpredicate).collect(Collectors.toList());
+		Predicate<User> Userpredicate = other -> {return user.equals(user);};
+		 List<User> user1 = Arrays.stream(cachedContactlist.getBody()).filter(Userpredicate).collect(Collectors.toList());
+		
 		
 		LOG.info("*******************************************");
-		LOG.info("" + userlist.size());
+		LOG.info("" + user1.get(0));
 		
 		LOG.info("*******************************************");
 
