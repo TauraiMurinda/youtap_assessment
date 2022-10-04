@@ -1,0 +1,37 @@
+package com.youtap.microservice.assessment.controller.dto;
+
+import java.io.Serializable;
+
+import com.youtap.microservice.assessment.controller.entity.User;
+
+public class UserDTO  implements Serializable{
+	
+	private static final long serialVersionUID = 306860852418418854L;
+	private Integer id;
+    private String username;
+    
+    
+    @Override
+    public int hashCode() {
+        return id.hashCode()+username.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (!(obj instanceof UserDTO)) {
+            return false;
+        } else {
+            UserDTO other = (UserDTO) obj;
+            return this.id==other.id || this.username.equalsIgnoreCase(other.username);            
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO [id=" + id + ", username=" + username + "]";
+    }
+
+
+}
