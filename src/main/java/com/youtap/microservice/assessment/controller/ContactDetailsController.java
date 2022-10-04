@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,30 +34,46 @@ public class ContactDetailsController {
 
 	
 	@GetMapping(value = "/getusercontacts", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User[]> getContactDetailsByIDorUsername(@RequestParam(value="id",required=false) Integer  id, @RequestParam(value="username", required=false) String  username) throws URISyntaxException {
+	public ResponseEntity<User> getContactDetailsByIDorUsername(@RequestParam(value="id",required=false) Integer  id, @RequestParam(value="username", required=false) String  username) throws URISyntaxException {
 		
 		LOG.info("ABOUT TO CALL CONTACTSLIST BACK END");
 		ResponseEntity<User[]> cachedContactlist = userContactDataSourceService.getContactsbyIDorUsername();
 		LOG.info("SEARCHING CONTACT DETAILS FOR PARTICULAR USER");
 		
-		LOG.info("\n id   :" +id +"\n" +"username    :"+username + "\n");
+		User  userContactsMatched= filterContacts(id, username, cachedContactlist);
 		
+		ResponseEntity<User>re = new ResponseEntity<>(userContactsMatched,HttpStatus.OK);
+		
+
+		return re; 
+	}
+
+
+	private  User filterContacts(Integer id, String username, ResponseEntity<User[]> cachedContactlist) {
+		User[] users = cachedContactlist.getBody().clone();
 		
 		User user = new User();
 		user.setId(id);
 		user.setUsername(username);
 		
+		User use = new User();
+		user.setId(id);
+		user.setUsername(username);
 
-		Predicate<User> Userpredicate = other -> {return user.equals(user);};
-		 List<User> user1 = Arrays.stream(cachedContactlist.getBody()).filter(Userpredicate).collect(Collectors.toList());
+		LOG.info("" + use.equals(user));
+		
+		Predicate<User> userpredicate = other -> {return user.equals(other);};
+		 List<User> user1 = Arrays.stream(users).filter(userpredicate).collect(Collectors.toList());
+		 
 		
 		
-		LOG.info("*******************************************");
+		LOG.info("*******************************************" + user1.size());
+		LOG.info("" + use.equals(user));
+
 		LOG.info("" + user1.get(0));
 		
 		LOG.info("*******************************************");
-
-		return cachedContactlist; 
+		return user1.get(0);
 	}
 
 }

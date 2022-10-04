@@ -1,6 +1,13 @@
 package com.youtap.microservice.assessment.controller.entity;
 import java.io.Serializable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class User implements Serializable{
+	
+	   private static final Logger LOG = LoggerFactory.getLogger(User.class);
+
     private static final long serialVersionUID = -5137552934413132517L;
 	private Integer id;
     private String name;
@@ -15,21 +22,32 @@ public class User implements Serializable{
 
     @Override
     public int hashCode() {
-        return id.hashCode()+username.hashCode();
+        return "12345".hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        } else if (!(obj instanceof User)) {
+       if (!(obj instanceof User)) {
+    	   LOG.info(" !(obj instanceof User");
             return false;
         } else {
             User other = (User) obj;
-            return this.id==other.id || this.username.equalsIgnoreCase(other.username);
+            if(this.id!=null || other.getId()!=null) {
+              LOG.info("this.id==other.id  "  + this.getId()+ "  "+other.getId() + "  " + (this.getId()==other.getId()));
+            	return this.getId()==other.getId();
+            }
+            
+            if(this.username!=null || other.getUsername()!=null) {
+            	LOG.info("this.username.equalsIgnoreCase(other.username)");
+            	return this.getUsername().equalsIgnoreCase(other.getUsername());
+
+            }
+            
+            return false;
         }
     }
-
+    
+    
     @Override
     public String toString() {
         return "\n User [id=" + id + ",\n username=" + username + ",\n email=" + getEmail() + ",\n phone=" + getPhone() + "]";
