@@ -41,11 +41,8 @@ public class ContactDetailsController {
 		LOG.info("SEARCHING CONTACT DETAILS FOR PARTICULAR USER");
 		
 		User  userContactsMatched= filterContacts(id, username, cachedContactlist);
-		
-		ResponseEntity<User>re = new ResponseEntity<>(userContactsMatched,HttpStatus.OK);
-		
-
-		return re; 
+		ResponseEntity<User>userContactsMatchedResponseEntity = new ResponseEntity<>(userContactsMatched,HttpStatus.OK);
+		return userContactsMatchedResponseEntity; 
 	}
 
 

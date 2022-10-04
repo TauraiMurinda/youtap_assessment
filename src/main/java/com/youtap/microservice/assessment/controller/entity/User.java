@@ -32,15 +32,14 @@ public class User implements Serializable{
             return false;
         } else {
             User other = (User) obj;
-            if(this.id!=null || other.getId()!=null) {
+            if(this.id!=null) {
               LOG.info("this.id==other.id  "  + this.getId()+ "  "+other.getId() + "  " + (this.getId()==other.getId()));
             	return this.getId()==other.getId();
             }
             
-            if(this.username!=null || other.getUsername()!=null) {
-            	LOG.info("this.username.equalsIgnoreCase(other.username)");
-            	return this.getUsername().equalsIgnoreCase(other.getUsername());
-
+            if(this.username!=null) {
+            	LOG.info("this.username.equalsIgnoreCase(other.username) " +  this.getUsername() +  "  " +other.getUsername() + "  "  + this.getUsername().equalsIgnoreCase(other.getUsername()));
+            	return this.username.equalsIgnoreCase(other.getUsername());
             }
             
             return false;
