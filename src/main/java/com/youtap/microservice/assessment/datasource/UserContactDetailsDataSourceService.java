@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import com.youtap.microservice.assessment.controller.entity.User;
 
 
-public interface UserContactDataSourceService {
+public interface UserContactDetailsDataSourceService {
 
 	ResponseEntity<User[]> getContactsbyIDorUsername() throws URISyntaxException;
 
