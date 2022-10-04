@@ -2,19 +2,13 @@ package com.youtap.microservice.assessment.controller.dto;
 
 import java.io.Serializable;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 public class UserDTO  implements Serializable{
-	
+
 	private static final long serialVersionUID = 306860852418418854L;
-	
+
 	private Integer id;
     private String username;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -31,7 +25,7 @@ public class UserDTO  implements Serializable{
 		this.username = username;
 	}
 
-        
+
     @Override
     public int hashCode() {
         return id.hashCode()+username.hashCode();
@@ -45,7 +39,7 @@ public class UserDTO  implements Serializable{
             return false;
         } else {
             UserDTO other = (UserDTO) obj;
-            return this.id==other.id || this.username.equalsIgnoreCase(other.username);            
+            return this.id==other.id || this.username.equalsIgnoreCase(other.username);
         }
     }
 

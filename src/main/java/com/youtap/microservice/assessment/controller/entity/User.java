@@ -1,7 +1,5 @@
 package com.youtap.microservice.assessment.controller.entity;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 public class User implements Serializable{
     private static final long serialVersionUID = -5137552934413132517L;
 	private Integer id;
@@ -12,9 +10,9 @@ public class User implements Serializable{
     private String phone;
     private String website;
     private Company company;
-    
-    
-    
+
+
+
     @Override
     public int hashCode() {
         return id.hashCode()+username.hashCode();
@@ -28,7 +26,7 @@ public class User implements Serializable{
             return false;
         } else {
             User other = (User) obj;
-            return this.id==other.id || this.username.equalsIgnoreCase(other.username);            
+            return this.id==other.id || this.username.equalsIgnoreCase(other.username);
         }
     }
 
@@ -37,33 +35,6 @@ public class User implements Serializable{
         return "User [id=" + id + ", username=" + username + "]";
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     public Integer getId() {
         return id;
     }
@@ -112,7 +83,7 @@ public class User implements Serializable{
     public void setCompany(Company company) {
         this.company = company;
     }
-    
-    
-    
+
+
+
 }
