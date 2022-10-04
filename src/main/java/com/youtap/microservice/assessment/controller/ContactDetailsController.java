@@ -28,7 +28,6 @@ import com.youtap.microservice.assessment.datasource.UserContactDetailsDataSourc
 
 @RestController
 public class ContactDetailsController {
-	
 	   private static final Logger LOG = LoggerFactory.getLogger(ContactDetailsController.class);
 
 
@@ -54,10 +53,9 @@ public class ContactDetailsController {
 	    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
 	  }
 
-
-
 	private  User filterContacts(Integer id, String username, ResponseEntity<User[]> cachedContactlist) {
 		User[] users = cachedContactlist.getBody().clone();
+		
 		
 		User user = new User();
 		user.setId(id);
