@@ -19,21 +19,16 @@ import com.youtap.microservice.assessment.controller.entity.User;
 @RestController
 public class ContactDetailsController {
 
-	@Autowired
-	private ModelMapper modelMapper;
 
-	@GetMapping(value = "/getusercontacts", produces = { MediaType.APPLICATION_XML_VALUE,
-			MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<User> getContactsbyIDorUsername(@PathVariable String ID, @RequestParam String username)throws URISyntaxException {
 
-		UserDTO userDTO = new UserDTO();
-		User user = modelMapper.map(userDTO, User.class);
+	@GetMapping(value = "/getusercontacts", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<User[]> getContactsbyIDorUsername()throws URISyntaxException {
 
 		RestTemplate restTemplate = new RestTemplate();
 		String usersUrl = "https://jsonplaceholder.typicode.com/users";
 		URI uri = new URI(usersUrl);
-		ResponseEntity<User> result = restTemplate.getForEntity(uri, User.class);
-
+		ResponseEntity<User[]> result = restTemplate.getForEntity(uri, User[].class);
+		
 		return  result;
 	}
 
